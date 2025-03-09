@@ -1,0 +1,10 @@
+<!-- inventory/templates/index.html -->
+{% extends 'base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+    <div class="text-center mt-5">
+        <h1>Welcome to Inventory Management System</h1>
+        <p class="lead">Manage your stock, purchases, and sales efficiently.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg mt-3">Login</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!-- inventory/templates/bill_summary.html -->
+{% extends 'base.html' %}
+{% block title %}Bill Summary{% endblock %}
+{% block content %}
+    <h1>Bill Summary</h1>
+
+    <h2>Purchases</h2>
+    {% if purchases %}
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Seller</th>
+                    <th>Goods</th>
+                    <th>Quantity</th>
+                    <th>Purchase Price</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                    <tr>
+                        <td data-label="Seller">{{ purchase.seller }}</td>
+                        <td data-label="Goods">{{ purchase.goods }}</td>
+                        <td data-label="Quantity">{{ purchase.quantity }}</td>
+                        <td data-label="Purchase Price">{{ purchase.purchase_price }}</td>
+                        <td data-label="Total">{{ purchase.total_amount }}</td>
+                        <td data-label="Date">{{ purchase.date|date:"Y-m-d H:i" }}</td>
+                        <td data-label="Actions">
+                            <a href="{% url 'update_seller' purchase.seller.id %}" class="btn btn-sm btn-warning">Update Seller</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No purchases recorded.</p>
+    {% endif %}
+
+    <h2>Sales</h2>
+    {% if sales %}
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Buyer</th>
+                    <th>Goods</th>
+                    <th>Quantity</th>
+                    <th>Sale Price</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                    <tr>
+                        <td data-label="Buyer">{{ sale.buyer }}</td>
+                        <td data-label="Goods">{{ sale.goods }}</td>
+                        <td data-label="Quantity">{{ sale.quantity }}</td>
+                        <td data-label="Sale Price">{{ sale.sale_price }}</td>
+                        <td data-label="Total">{{ sale.total_amount }}</td>
+                        <td data-label="Date">{{ sale.date|date:"Y-m-d H:i" }}</td>
+                        <td data-label="Actions">
+                            <a href="{% url 'update_buyer' sale.buyer.id %}" class="btn btn-sm btn-warning">Update Buyer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No sales recorded.</p>
+    {% endif %}
+
+    <h2>Financial Summary</h2>
+    <div class="financial-summary mt-3">
+        <p><strong>Total Purchases:</strong> {{ total_purchase }}</p>
+        <p><strong>Total Sales:</strong> {{ total_sale }}</p>
+        <p><strong>Profit:</strong> {{ profit }}</p>
+    </div>
+{% endblock %}

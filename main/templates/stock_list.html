@@ -1,0 +1,30 @@
+<!-- inventory/templates/stock_list.html -->
+{% extends 'base.html' %}
+{% block title %}Stock List{% endblock %}
+{% block content %}
+    <h1>Current Stock</h1>
+    {% if stocks %}
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Goods</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                    <tr>
+                        <td data-label="Goods">{{ stock.goods }}</td>
+                        <td data-label="Quantity">{{ stock.quantity }}</td>
+                        <td data-label="Actions">
+                            <a href="{% url 'update_goods' stock.goods.id %}" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="mt-3">No stock available.</p>
+    {% endif %}
+{% endblock %}
